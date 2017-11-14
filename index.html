@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task board</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <img src="images/title.png" id="logoTitle">
+    <div class="container" id="formContainer">
+        <div>
+            <form id="formTasks" novalidate>
+                <div class="form-group" id="dateInput">
+                    <label>Enter date:<input class="form-control" type="date" placeholder="Date" required></label>
+                </div>
+                <div class="form-group" id="nameInput">
+                    <label>Enter task name:<input class="form-control" type="text" placeholder="Task name"></label>
+                </div>
+                <div class="form-group">
+                    <button id="saveTaskButton" class="btn btn-primary">Save Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="notesArea" class="container">
+        <div class="row">
+            <div class="note col-xs-6 col-sm-6 col-md-4">
+                <div><label>task name</label></div>
+                <textarea id="textAreaTask" class="form-control" type="text" placeholder="Task details..."></textarea>
+                <div>
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src=""></script>
+</body>
+
+</html>

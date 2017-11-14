@@ -1,0 +1,79 @@
+/*
+color of lines #1306d2
+*/
+
+body {
+    background-image: url("images/tile.jpg");
+}
+
+#logoTitle {
+    display: block;
+    margin: auto;
+}
+
+#formContainer {
+    background-image: url("images/formbg.jpg");
+    width: 600px;
+    height: 248px;
+    box-sizing: border-box;
+    border: 2px solid #1306d2;
+    border-radius: 6px;
+}
+
+#formTasks {
+   width: 400px;
+   margin: auto;
+}
+
+#dateInput {
+    margin-top: 27px;
+}
+#dateInput input {
+    width: 400px;
+}
+
+#nameInput {
+    margin-top: -9px;
+}
+
+#nameInput input{
+    width: 400px;
+}
+
+#saveTaskButton {
+    margin-top: 13px;
+    width: 400px;
+}
+
+.note {
+    background-image: url("images/notebg.png");
+    width: 200px;
+    height: 250px;
+    padding: 30px 4px;
+    margin: 20px;
+}
+
+#textAreaTask {
+    width: 170px;
+    resize: none;
+    overflow: auto;
+}
+
+.glyphicon {
+    font-size: 1.5em;
+    color: #666;
+}
+.glyphicon-edit:hover {
+    color: #1306d2;
+}
+.glyphicon-remove-sign:hover {
+    color: red;
+}
+/*
+div {
+    display: none;
+}
+    
+a:hover + div {
+    display: block;
+}*/
