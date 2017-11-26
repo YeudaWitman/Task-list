@@ -1,79 +1,99 @@
 /*
 color of lines #1306d2
+warning color: #a94442
 */
+
+* {}
 
 body {
     background-image: url("images/tile.jpg");
+    box-sizing: border-box;
 }
 
 #logoTitle {
     display: block;
     margin: auto;
+    padding: 10px;
 }
+
+/*form*/
 
 #formContainer {
     background-image: url("images/formbg.jpg");
-    width: 600px;
+    width: 500px;
     height: 248px;
-    box-sizing: border-box;
     border: 2px solid #1306d2;
-    border-radius: 6px;
+    border-radius: 4px;
+    padding: 30px;
 }
 
-#formTasks {
-   width: 400px;
-   margin: auto;
-}
-
-#dateInput {
-    margin-top: 27px;
-}
-#dateInput input {
-    width: 400px;
-}
-
-#nameInput {
-    margin-top: -9px;
-}
-
-#nameInput input{
-    width: 400px;
+#textAreaForm {
+    height: 66px;
+    resize: none;
+    overflow: auto;
 }
 
 #saveTaskButton {
-    margin-top: 13px;
-    width: 400px;
+    display: block;
+    margin: 17px auto 7px auto;
 }
+
+#warningDate {
+    visibility: hidden;
+    color: #a94442;
+    font-weight: 700;
+    text-align: center;
+}
+
+/*notes*/
 
 .note {
     background-image: url("images/notebg.png");
     width: 200px;
     height: 250px;
-    padding: 30px 4px;
-    margin: 20px;
+    padding: 23px 4px;
+    margin: 5px;
+    /*fade-in animation*/
+    opacity: 0;
+    transition: opacity 0.7s;
 }
 
-#textAreaTask {
+.taskNameLabel {
+    margin-left: 6px;
+    font-weight: 700;
+    height: 24px;
+}
+
+.textAreaTask {
+    margin-top: 3px;
+    padding: 3px;
     width: 170px;
-    resize: none;
-    overflow: auto;
+    height: 143px;
+    border: 1px solid #ccc;
+    background-color: rgba(1, 1, 1, 0.1);
+}
+
+.buttonsContainer {
+    visibility: hidden;
+    float: right;
+    margin-right: 22px;
+}
+
+.note:hover .buttonsContainer {
+    visibility: visible;
 }
 
 .glyphicon {
     font-size: 1.5em;
     color: #666;
+    box-sizing: border-box;
+    padding-right: 5px
 }
+
 .glyphicon-edit:hover {
     color: #1306d2;
 }
+
 .glyphicon-remove-sign:hover {
-    color: red;
+    color: #fb4435;
 }
-/*
-div {
-    display: none;
-}
-    
-a:hover + div {
-    display: block;
-}*/
