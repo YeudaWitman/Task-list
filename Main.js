@@ -10,10 +10,8 @@ var notesArea = document.getElementById("notesArea");
 //events:
 saveButton.addEventListener("click", newNote);
 window.onload = getFromStorage();
-//window.onload = testStorage()
 
-var notesArray = [];
-
+var notesArray;
 //function constructor
 function Note(date, name, details) {
     this.date = date;
@@ -28,6 +26,7 @@ function newNote(e) {
         addNoteToView(n);
         //resetForm();
         addToArray(n);
+        putInStorage();
     }
 }
 //form validation--DONE
@@ -95,14 +94,11 @@ function addNoteToView(Note) {
     taskNameLabel.innerHTML = Note.name;
     textAreaTask.innerHTML = Note.details;
     taskDateLabel.innerHTML = Note.date;
-    //fade out
-    noteDiv.style.opacity = "1";
     //remove button event
     deleteBtn.addEventListener("click", removeNote);
-
 }
 
-//remove note
+//remove note -- problem!!!!
 function removeNote(e) {
     const targetItem = e.target.parentElement.parentElement;
     targetItem.style.opacity = "0";
@@ -113,37 +109,39 @@ function removeNote(e) {
     }
     console.log("Fade Out");
     //TODO: remove from storage
+    notesArray.shift();
+    putInStorage()
 }
-
-//CRUD tasks
+//problem here!!!! n is undefined -solved-
 function addToArray(n) {
-    console.log("addToArray " + n);
+    if (!notesArray) {
+        notesArray = [];
+    }
     notesArray.push(n);
-    console.log(notesArray);
-    putInStorage(notesArray);
-}
-// add to local storage
-function putInStorage(Note) {
-    localStorage.setItem("notes", JSON.stringify(Note))
-    console.log("put in storage: " + Note);
 }
 
+// add to local storage
+function putInStorage() {
+    localStorage.setItem("notes", JSON.stringify(notesArray))
+    console.log("put in storage: " + notesArray);
+}
+// get from local storage
 function getFromStorage() {
     //check if localstorage empty
     if (localStorage.getItem("notes") === null) {
         return false;
     }
     var notesStorage = JSON.parse(localStorage.getItem("notes"));
-    Array.from(notesStorage);
-    console.log("getFromStorage " + notesStorage)
+    notesArray = notesStorage;
+    //addToArray(notesStorage);
+    console.log("getFromStorage " + notesStorage);
     viewFromStorage(notesStorage);
 }
 // print from storage
 function viewFromStorage(notesStorage) {
-
-
     for (let j = 0; j < notesStorage.length; j++) {
-        console.log("viewFromStorage " + notesStorage);
-        addNoteToView(notesStorage);
+        notesStorage[j];
+        addNoteToView(notesStorage[j]);
+        //addToArray(notesStorage[j]);
     }
 };
