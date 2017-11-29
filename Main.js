@@ -6,22 +6,28 @@ var saveButton = document.getElementById("saveTaskButton");
 var warningDate = document.getElementById("warningDate")
 var dateformat = /^(0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])[\/\-]\d{4}$/;
 var notesArea = document.getElementById("notesArea");
+var uniqueID = 0;
 
 //events:
 saveButton.addEventListener("click", newNote);
 window.onload = getFromStorage();
-
+//empty variable to be
 var notesArray;
+
 //function constructor
-function Note(date, name, details) {
+function Note(date, name, details, uniqueID) {
     this.date = date;
     this.name = name;
     this.details = details;
+    this.uniqueID = uniqueID;
 }
+
 //create new object
 function newNote(e) {
     e.preventDefault();
-    var n = new Note(dateInput.value, nameInput.value, detailsInput.value);
+    var n = new Note(dateInput.value, nameInput.value, detailsInput.value, uniqueID++);
+    console.log(n)
+    console.log(uniqueID)
     if (validations(n)) {
         addNoteToView(n);
         //resetForm();
@@ -29,6 +35,7 @@ function newNote(e) {
         putInStorage();
     }
 }
+
 //form validation--DONE
 function validations(Note) {
     if (dateformat.test(Note.date)) {
@@ -90,17 +97,22 @@ function addNoteToView(Note) {
 
     //add attributes - 
     deleteBtn.setAttribute("title", "Delete Task")
+    noteDiv.setAttribute("id", "uniqueID" + Note.uniqueID)
     //add values
     taskNameLabel.innerHTML = Note.name;
     textAreaTask.innerHTML = Note.details;
     taskDateLabel.innerHTML = Note.date;
+
     //remove button event
     deleteBtn.addEventListener("click", removeNote);
+
 }
+
 
 //remove note -- problem!!!!
 function removeNote(e) {
     const targetItem = e.target.parentElement.parentElement;
+    loopId(targetItem.id) //
     targetItem.style.opacity = "0";
     setTimeout(removeFunc, 1000) //delay removing after the fadeout
     function removeFunc() {
@@ -108,10 +120,19 @@ function removeNote(e) {
         targetItem.parentNode.removeChild(targetItem);
     }
     console.log("Fade Out");
-    //TODO: remove from storage
-    notesArray.shift();
     putInStorage()
 }
+//find uniqueID in the note array and splice
+function loopId(targetItemId) {
+    console.log("before removing" + notesArray);
+    for (var i = 0; i < notesArray.length; i++) {
+        if (notesArray[i].uniqueID !== i) {
+            notesArray.splice(i, 1)
+            console.log("after removing" + notesArray);
+        }
+    }
+}
+
 //problem here!!!! n is undefined -solved-
 function addToArray(n) {
     if (!notesArray) {
@@ -123,7 +144,7 @@ function addToArray(n) {
 // add to local storage
 function putInStorage() {
     localStorage.setItem("notes", JSON.stringify(notesArray))
-    console.log("put in storage: " + notesArray);
+    localStorage.setItem("ids", JSON.stringify(uniqueID))
 }
 // get from local storage
 function getFromStorage() {
@@ -132,9 +153,10 @@ function getFromStorage() {
         return false;
     }
     var notesStorage = JSON.parse(localStorage.getItem("notes"));
+    var IDs = JSON.parse(localStorage.getItem("ids"));
+    uniqueID = IDs;
     notesArray = notesStorage;
-    //addToArray(notesStorage);
-    console.log("getFromStorage " + notesStorage);
+    console.log("IDs: " + uniqueID);
     viewFromStorage(notesStorage);
 }
 // print from storage
@@ -142,6 +164,5 @@ function viewFromStorage(notesStorage) {
     for (let j = 0; j < notesStorage.length; j++) {
         notesStorage[j];
         addNoteToView(notesStorage[j]);
-        //addToArray(notesStorage[j]);
     }
 };
