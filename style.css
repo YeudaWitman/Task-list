@@ -28,14 +28,14 @@ body {
 }
 
 #textAreaForm {
-    height: 66px;
+    height: 67px;
     resize: none;
     overflow: auto;
 }
 
 #saveTaskButton {
     display: block;
-    margin: 17px auto 7px auto;
+    margin: 19px auto 7px auto;
 }
 
 #warningDate {
@@ -46,12 +46,13 @@ body {
 }
 
 /*notes*/
+
 #notesArea {
     margin: 2px;
     height: 250px;
 }
+
 .note {
-    animation: fadein 1s;
     background-image: url("images/notebg.png");
     font-family: 'Kalam', cursive;
     font-size: 1.2em;
@@ -59,21 +60,11 @@ body {
     height: 250px;
     padding: 23px 4px;
     margin: 5px;
-    
+    opacity: 0;
     /*fade-out animation*/
     transition: opacity 0.7s;
-    
-    /*fade-in animation*/
-    
-    @keyframes fadein {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
 }
+
 
 .taskNameLabel {
     margin-left: 6px;
@@ -88,6 +79,7 @@ body {
     height: 143px;
     border: 1px solid #ccc;
     background-color: rgba(1, 1, 1, 0.1);
+    overflow: auto;
 }
 
 .buttonsContainer {
@@ -101,7 +93,7 @@ body {
 }
 
 .glyphicon {
-    font-size: 1.5em;
+    font-size: 1.2em;
     color: #666;
     box-sizing: border-box;
     padding-right: 5px
@@ -113,4 +105,32 @@ body {
 
 .glyphicon-remove-sign:hover {
     color: #fb4435;
+}
+
+.taskDateLabel {
+    margin-top: 5px;
+    padding-top: 10px;
+}
+/*
+ *  STYLE 1
+ */
+
+#style-1::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
 }

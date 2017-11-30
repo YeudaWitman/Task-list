@@ -4,7 +4,7 @@ var nameInput = document.getElementById("nameInput");
 var detailsInput = document.getElementById("textAreaForm");
 var saveButton = document.getElementById("saveTaskButton");
 var warningDate = document.getElementById("warningDate")
-var dateformat = /^(0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])[\/\-]\d{4}$/;
+var dateformat = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
 var notesArea = document.getElementById("notesArea");
 var uniqueID = 0;
 
@@ -26,8 +26,6 @@ function Note(date, name, details, uniqueID) {
 function newNote(e) {
     e.preventDefault();
     var n = new Note(dateInput.value, nameInput.value, detailsInput.value, uniqueID++);
-    console.log(n)
-    console.log(uniqueID)
     if (validations(n)) {
         addNoteToView(n);
         //resetForm();
@@ -39,19 +37,16 @@ function newNote(e) {
 //form validation--DONE
 function validations(Note) {
     if (dateformat.test(Note.date)) {
-        console.log("INPUT OK");
         dateInputDiv.className = 'form-group';
         saveButton.className = 'btn btn-primary'
         warningDate.style.visibility = 'hidden';
         return true
     } else if (Note.date == "") {
-        console.log("Date Empty");
         dateInputDiv.className = 'form-group has-error';
         saveButton.className = 'btn btn-warning'
         warningDate.style.visibility = 'visible';
         return false
     } else {
-        console.log("wrong date format");
         dateInputDiv.className = 'form-group has-error';
         saveButton.className = 'btn btn-danger';
         warningDate.style.visibility = 'visible';
@@ -92,12 +87,17 @@ function addNoteToView(Note) {
     deleteBtn.className += "glyphicon glyphicon-remove-sign";
     taskNameLabel.className += "taskNameLabel";
     textAreaTask.className += "textAreaTask";
+    taskDateLabel.className += "taskDateLabel";
     //enter new note to beginning:
     //notesArea.insertBefore(noteDiv, notesArea.childNodes[0]);
 
     //add attributes - 
+    setTimeout(fadeInFX, 1) //delay fadeout after the adding note
+    function fadeInFX() {
+        noteDiv.style.opacity = "1";;
+    }
     deleteBtn.setAttribute("title", "Delete Task")
-    noteDiv.setAttribute("id", "uniqueID" + Note.uniqueID)
+    noteDiv.setAttribute("id", Note.uniqueID)
     //add values
     taskNameLabel.innerHTML = Note.name;
     textAreaTask.innerHTML = Note.details;
@@ -105,7 +105,6 @@ function addNoteToView(Note) {
 
     //remove button event
     deleteBtn.addEventListener("click", removeNote);
-
 }
 
 
@@ -114,21 +113,19 @@ function removeNote(e) {
     const targetItem = e.target.parentElement.parentElement;
     loopId(targetItem.id) //
     targetItem.style.opacity = "0";
-    setTimeout(removeFunc, 1000) //delay removing after the fadeout
+    targetItem.className = "note col-xs-6";
+    setTimeout(removeFunc, 500) //delay removing after the fadeout
     function removeFunc() {
-        console.log("NOTE REMOVED")
         targetItem.parentNode.removeChild(targetItem);
     }
-    console.log("Fade Out");
     putInStorage()
 }
 //find uniqueID in the note array and splice
 function loopId(targetItemId) {
-    console.log("before removing" + notesArray);
     for (var i = 0; i < notesArray.length; i++) {
-        if (notesArray[i].uniqueID !== i) {
+        if (notesArray[i].uniqueID == targetItemId) {
             notesArray.splice(i, 1)
-            console.log("after removing" + notesArray);
+            break;
         }
     }
 }
@@ -156,7 +153,6 @@ function getFromStorage() {
     var IDs = JSON.parse(localStorage.getItem("ids"));
     uniqueID = IDs;
     notesArray = notesStorage;
-    console.log("IDs: " + uniqueID);
     viewFromStorage(notesStorage);
 }
 // print from storage
