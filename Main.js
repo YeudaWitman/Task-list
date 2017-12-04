@@ -92,10 +92,8 @@ function addNoteToView(Note) {
     //notesArea.insertBefore(noteDiv, notesArea.childNodes[0]);
 
     //add attributes
-    setTimeout(fadeInFX, 1) //delay fadeout after the adding note
-    function fadeInFX() {
-        noteDiv.style.opacity = "1";
-    }
+    setTimeout(fadeInFX, 1, noteDiv) //delay fadein after the adding note
+    //Passing parm is not supported in IE9 and earlier!
     deleteBtn.setAttribute("title", "Delete Task")
     noteDiv.setAttribute("id", Note.uniqueID)
     //add values
@@ -107,17 +105,22 @@ function addNoteToView(Note) {
     deleteBtn.addEventListener("click", removeNote);
 }
 
+function fadeInFX(noteDiv) {
+    noteDiv.style.opacity = "1";
+}
+
 //remove note
 function removeNote(e) {
     const targetItem = e.target.parentElement.parentElement;
     loopId(targetItem.id) //
     targetItem.style.opacity = "0";
     targetItem.className = "note col-xs-6";
-    setTimeout(removeFunc, 500) //delay removing after the fadeout
-    function removeFunc() {
-        targetItem.parentNode.removeChild(targetItem);
-    }
+    setTimeout(removeFunc, 500, targetItem) //delay removing after the fadeout
     putInStorage()
+}
+
+function removeFunc(targetItem) {
+    targetItem.parentNode.removeChild(targetItem);
 }
 //find uniqueID in the note array and splice
 function loopId(targetItemId) {
