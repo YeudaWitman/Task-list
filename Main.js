@@ -11,7 +11,7 @@ var uniqueID = 0;
 //events:
 saveButton.addEventListener("click", newNote);
 window.onload = getFromStorage();
-//empty variable to be
+//empty variable to be array after loading from storage
 var notesArray;
 
 //function constructor
@@ -28,7 +28,7 @@ function newNote(e) {
     var n = new Note(dateInput.value, nameInput.value, detailsInput.value, uniqueID++);
     if (validations(n)) {
         addNoteToView(n);
-        //resetForm();
+        resetForm();
         addToArray(n);
         putInStorage();
     }
@@ -43,7 +43,7 @@ function validations(Note) {
         return true
     } else if (Note.date == "") {
         dateInputDiv.className = 'form-group has-error';
-        saveButton.className = 'btn btn-warning'
+        saveButton.className = 'btn btn-danger'
         warningDate.style.visibility = 'visible';
         return false
     } else {
@@ -53,7 +53,7 @@ function validations(Note) {
         return false
     }
 }
-//reset form values (use preventDefault) --DONE
+//reset form values
 function resetForm() {
     dateInput.value = "";
     nameInput.value = "";
@@ -88,13 +88,13 @@ function addNoteToView(Note) {
     taskNameLabel.className += "taskNameLabel";
     textAreaTask.className += "textAreaTask";
     taskDateLabel.className += "taskDateLabel";
-    //enter new note to beginning:
+    //option: enter new note to beginning of list:
     //notesArea.insertBefore(noteDiv, notesArea.childNodes[0]);
 
-    //add attributes - 
+    //add attributes
     setTimeout(fadeInFX, 1) //delay fadeout after the adding note
     function fadeInFX() {
-        noteDiv.style.opacity = "1";;
+        noteDiv.style.opacity = "1";
     }
     deleteBtn.setAttribute("title", "Delete Task")
     noteDiv.setAttribute("id", Note.uniqueID)
@@ -107,8 +107,7 @@ function addNoteToView(Note) {
     deleteBtn.addEventListener("click", removeNote);
 }
 
-
-//remove note -- problem!!!!
+//remove note
 function removeNote(e) {
     const targetItem = e.target.parentElement.parentElement;
     loopId(targetItem.id) //
@@ -122,7 +121,7 @@ function removeNote(e) {
 }
 //find uniqueID in the note array and splice
 function loopId(targetItemId) {
-    for (var i = 0; i < notesArray.length; i++) {
+    for (let i = 0; i < notesArray.length; i++) {
         if (notesArray[i].uniqueID == targetItemId) {
             notesArray.splice(i, 1)
             break;
@@ -155,7 +154,7 @@ function getFromStorage() {
     notesArray = notesStorage;
     viewFromStorage(notesStorage);
 }
-// print from storage
+// add to view from storage
 function viewFromStorage(notesStorage) {
     for (let j = 0; j < notesStorage.length; j++) {
         notesStorage[j];

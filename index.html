@@ -10,7 +10,7 @@
     <!--My CSS-->
     <link rel="stylesheet" href="style.css">
     <!--google font-->
-<link href="https://fonts.googleapis.com/css?family=Kalam" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Kalam" rel="stylesheet">
 </head>
 
 <body>
@@ -22,8 +22,7 @@
                 <div class="row">
                     <div class="col-xs-6">
                         <div id="dateInputDiv" class="form-group">
-                            <input type="text" id="dateInput" class="form-control" placeholder="Enter Date (DD/MM/YYYY)" tabindex="1" required value="12/12/2012">
-
+                            <input type="text" id="dateInput" class="form-control" placeholder="Enter Date" tabindex="1" required>
                         </div>
                     </div>
                     <div class="col-xs-6">
@@ -37,16 +36,17 @@
                 </div>
                 <div class="row">
                     <button type="submit" id="saveTaskButton" class="btn btn-primary" tabindex="4">Save Task</button>
-                    <div id="warningDate">The date must be: DD/MM/YYYY</div>
+                    <div id="warningDate">The date is empty or not valid! Try: DD/MM/YYYY
+                    </div>
                 </div>
             </form>
         </div>
     </div>
     <!--notes-->
     <div id="notesArea" class="container">
-        <!--sample note-->
         
-<!--
+        <!--sample note-->
+        <!--
         <div class="note col-xs-6">
             <div class="buttonsContainer">
                 <span class="glyphicon glyphicon-edit" title="Edit Task"></span>
